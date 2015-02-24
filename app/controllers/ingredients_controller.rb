@@ -1,74 +1,66 @@
 class IngredientsController < ApplicationController
-  before_action :set_ingredient, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
-  # GET /ingredients
-  # GET /ingredients.json
   def index
     @ingredients = Ingredient.all
+    if params[:ingredients]
+      @results = params[:ingredients].map do |r|
+      Ingredient.find(r)
+      end
+    end
+    @result_id = params[:ingredients]
   end
 
-  # GET /ingredients/1
-  # GET /ingredients/1.json
-  def show
-  end
-
-  # GET /ingredients/new
   def new
+    @user = current_user
+    @recipes = current_user.recipes
     @ingredient = Ingredient.new
   end
 
-  # GET /ingredients/1/edit
   def edit
+    populate_ingredient
   end
 
-  # POST /ingredients
-  # POST /ingredients.json
-  def create
-    @ingredient = Ingredient.new(ingredient_params)
-
-    respond_to do |format|
-      if @ingredient.save
-        format.html { redirect_to @ingredient, notice: 'Ingredient was successfully created.' }
-        format.json { render :show, status: :created, location: @ingredient }
-      else
-        format.html { render :new }
-        format.json { render json: @ingredient.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /ingredients/1
-  # PATCH/PUT /ingredients/1.json
   def update
-    respond_to do |format|
-      if @ingredient.update(ingredient_params)
-        format.html { redirect_to @ingredient, notice: 'Ingredient was successfully updated.' }
-        format.json { render :show, status: :ok, location: @ingredient }
-      else
-        format.html { render :edit }
-        format.json { render json: @ingredient.errors, status: :unprocessable_entity }
-      end
+    populate_ingredient
+    @ingredient.update(concern_params)
+    redirect_to root_path
+  end
+
+  def create
+    @ingredient = Ingredient.new(ingredient_params.merge(user_id: current_user.id))
+    if @ingredient.save
+      redirect_to ingredient_path(current_user, @ingredient)
+    else
+      render 'new'
     end
   end
 
-  # DELETE /ingredients/1
-  # DELETE /ingredients/1.json
+  def show
+    #populate_ingredient
+  end
+
+  def splash
+    
+  end
+
   def destroy
+    populate_ingredient
     @ingredient.destroy
-    respond_to do |format|
-      format.html { redirect_to ingredients_url, notice: 'Ingredient was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to root_path
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_ingredient
-      @ingredient = Ingredient.find(params[:id])
-    end
+#if ingredients are specified in params, run search function, otherwise display option to search (form again)
+#basic search form sinatra
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def ingredient_params
-      params[:ingredient]
-    end
+private
+
+  def populate_ingredient
+    @results = Ingredient.find( params[:id])
+  end
+
+  def ingredient_params
+    params.require(:ingredient).permit(:text)
+  end
+
 end

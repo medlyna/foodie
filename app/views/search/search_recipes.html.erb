@@ -1,1 +1,20 @@
-<h1>hello</h1>
+<!-- THIS IS THE VIEW AFTER A USER LOGS IN, THIS IS WHERE THEY WILL INPUT THE INGREDIENTS AND GET THE RECIPE SUGGESTIONS -->
+
+
+<form class="search" id="ingredient_search">
+<!--   <div class="container"> -->
+    <h2>What ingredients are you starting with?</h2>          
+    <select data-placeholder="Choose Ingredient(s)" class="chosen" multiple="true" name="ingredient">
+      <option value="garlic"> garlic </option>
+    
+    </select>
+    
+    <input type="submit" value="search for recipes" />
+<!--   </div> -->
+</form>
+
+  <div class="recipes">
+    <h2>Recipes You Can Cook</h2>
+      <ul class="show-recipe"></ul>
+  </div>
+
