@@ -19,9 +19,8 @@ $('#ingredient_search').on("submit",function(evt){
 		// console.log(parsed_json.matches)
 		 for (i=0; i<parsed_json.matches.length; i++){
 		 	console.log(parsed_json.matches[i].recipeName)
-			// recipes.push(parsed_json.ingredients[i]);
-			// $("#recipe-list").replaceWith(
-			// 	"<li class='recipe-name'>" + matches.RecipeName 	
+			$(".recipe-list").append(
+			"<li>" + parsed_json.matches[i].recipeName + "</li>"); 	
 			}
 		}
 });
