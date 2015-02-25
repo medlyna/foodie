@@ -3,9 +3,10 @@ $(document).ready(function($){
 $('#ingredient_search').on("submit",function(evt){
   event.preventDefault();
 
-  var url = 'https://api.yummly.com/v1/api/recipes?_app_id=4dff1881&_app_key=6a53d93644cf7dd923a5b67c226c20f1';
-  var ingredient = $('#ingredient').val();
-
+  
+  var ingredient = document.getElementById("mySelect").value;
+  alert(ingredient);
+	var url = 'https://api.yummly.com/v1/api/recipes?_app_id=4dff1881&_app_key=6a53d93644cf7dd923a5b67c226c20f1&q='+ingredient+'&requirePictures=true';
 		$.ajax({
 			url: url,
 			dataType: 'json',
