@@ -3,13 +3,22 @@
 
 <form class="search" id="ingredient_search">
 <!--   <div class="container"> -->
-    <h2>What ingredients are you starting with?</h2>          
-    <select data-placeholder="Choose Ingredient(s)" class="chosen" multiple="true" id="mySelect" name="ingredient">
-     <!--  <option value="garlic"> garlic </option> -->
-      <option value="chicken"> chicken </option>
-      <option value="yogurt"> yogurt </option>
-    
-    </select>
+    <h2>What ingredients are you starting with?</h2>     
+	<select id='pre-selected-options' multiple='true' name="ingredient">
+	  <option value='chicken' selected>chicken</option>
+	  <option value='yogurt'>yogurt</option>
+	  <option value='salmon'>salmon</option>
+	  <option value='pepper' selected>pepper</option>
+	</select>
+
+<form class="search" id="allergy">
+<!--   <div class="container"> -->
+    <h2>Allergies YO</h2>     
+	<select id='pre-selected-options_allergy' multiple='multiple' name="allergy">
+	  <option value='394^Peanut-Free' selected>peanut</option>
+	  <option value='396^Dairy-Free'>dairy</option>
+	</select>
+
     
     <input type="submit" value="search for recipes" />
 <!--   </div> -->
@@ -17,6 +26,9 @@
 
   <div class="recipes">
     <h2>Recipes You Can Cook</h2>
-      <ul class="recipe-list"></ul>
+      <div class="recipe-list"></div>
   </div>
+
+
+
 
